@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {View, Switch, ScrollView} from 'react-native';
 import AppStyles from '../../AppStyles';
 import { Input } from '@rneui/base';
 import { useState } from 'react';
@@ -6,7 +6,7 @@ import AppButton from '../../components/AppButton/AppButton';
 import AppInputText from '../../components/AppInputText/AppInputText';
 import { useForm } from 'react-hook-form';
 import AppInputNewPassword from '../../components/AppInputNewPassword/AppInputNewPassword';
-import App from '../App';
+import AppSwitch from '../../components/AppSwitch/AppSwitch';
 
 
 export default ({onInscription}) =>{
@@ -15,9 +15,9 @@ export default ({onInscription}) =>{
     const [isPoto, setIsPoto] = useState(false);
 
     const {control, handleSubmit, formState: {errors}} = useForm();
-    const toggleSwitch = () => setIsPoto(previousState => !previousState);
 
     return(
+        <ScrollView>
         <View style={[styles.container, styles.safeArea]}>
             <AppInputText
                 control={control}
@@ -70,18 +70,14 @@ export default ({onInscription}) =>{
                 name="password"
                 label="Mot de passe"
                     />
-            <Switch
-                control={control}
-                trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={isPoto ? '#f5dd4b' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isPoto}
-            />
+           <AppSwitch
+           control={control}
+           name="isPoto" />
             <AppButton
                 title="Inscription" 
-                style={{width:100}}
+                style={{width:100, marginLeft:20}}
                 onPress={handleSubmit(onInscription)}/>
         </View>
+        </ScrollView>
     )
 }
